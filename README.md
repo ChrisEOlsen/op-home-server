@@ -1,24 +1,24 @@
-# Create the teleport folders
+### Create the teleport folders
 ```bash
 mkdir -p teleport/config teleport/data
 ```
 
-# Ensure TUNNEL_TOKEN is set retrieved from Cloudflare dashboard
+### Ensure TUNNEL_TOKEN is set retrieved from Cloudflare dashboard
 ```bash
 export TUNNEL_TOKEN=your_tunnel_token_here
 ```
 
-# Setup swarm mode
+### Setup swarm mode
 ```bash
 docker swarm init
 ```
 
-# Create an overlay network (Swarm)
+### Create an overlay network (Swarm)
 ```bash
 docker network create --driver overlay teleport-overlay-network
 ```
 
-# Create a role:
+### Create a role:
 ```bash
 docker exec -i teleport tctl create -f - <<'EOF'
 kind: role
@@ -38,18 +38,18 @@ spec:
 EOF
 ```
 
-# Add the admin user:
+### Add the admin user:
 ```bash
 docker exec -i teleport tctl users add chris --roles=admin
 ```
 
-# Launch
+### Launch
 ```bash
 docker stack deploy -c docker-compose.yml teleport_stack
 ```
 
-# Doing this on an old linux laptop?
-## Keep awake while lid is closed:
+### Doing this on an old linux laptop?
+#### Keep awake while lid is closed:
 ```bash
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
