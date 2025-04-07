@@ -3,7 +3,7 @@
 mkdir -p teleport/config teleport/data
 ```
 
-### Ensure TUNNEL_TOKEN is set retrieved from Cloudflare dashboard
+### Ensure TUNNEL_TOKEN is retrieved from Cloudflare dashboard
 ```bash
 export TUNNEL_TOKEN=your_tunnel_token_here
 ```
