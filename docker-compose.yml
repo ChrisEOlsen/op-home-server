@@ -1,0 +1,26 @@
+services:
+  teleport:
+    image: public.ecr.aws/gravitational/teleport-distroless:17.4.2
+    container_name: teleport
+    hostname: localhost
+    volumes:
+      - ./teleport/config:/etc/teleport
+      - ./teleport/data:/var/lib/teleport
+    ports:
+      - "3025:3025"
+      - "3080:3080"
+    networks:
+      - teleport-network
+
+  cloudflaretunnel:
+    image: cloudflare/cloudflared:2025.4.0
+    container_name: cloudflaretunnel
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    command: tunnel --no-autoupdate run theonewhothinks-tunnel
+    networks:
+      - teleport-network
+
+networks:
+  teleport-network:
+    external: true
