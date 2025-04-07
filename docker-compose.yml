@@ -19,8 +19,8 @@ services:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
     command: tunnel --no-autoupdate run theonewhothinks-tunnel
     networks:
-      - teleport-network
+      - teleport-overlay-network
 
 networks:
-  teleport-network:
+  teleport-overlay-network:
     external: true
