@@ -52,5 +52,6 @@ spec:
 sudo tctl create -f admin-role.yaml
 sudo tctl users add chris --roles=admin --logins=root,chris
 ```
-Follow the link and then create your credentials with the OTP device
-VOILA! Happy Teleporting
+Follow the link and then create your credentials with your OTP device/app and
+VOILA! 
+Happy Teleporting
