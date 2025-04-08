@@ -18,14 +18,14 @@ Community Version One-Liner
 ```bash
 curl https://cdn.teleport.dev/install.sh | bash -s 17.4.2
 ```
-#### 5. Add the included teleport.yaml file to your /etc folder (make any changes necessary for your personal setup)
+#### 5. Add the included teleport.yaml file to your /etc folder 
+Ensure your make any changes necessary for your personal setup
 
-#### Start Teleport!
+#### 6. Start Teleport!
 ```bash
 sudo systemctl enable teleport
 sudo systemctl start teleport
 ```
-
 
 #### Once downloaded Teleport successfully
 Double check that you have tctl installed.
@@ -40,7 +40,7 @@ metadata:
   name: admin
 spec:
   allow:
-    logins: ['root', 'chris']  # Replace 'chris' with your Linux username
+    logins: ['root', 'your_name']  # Replace 'your_name' with your Linux username or something
     node_labels:
       '*': '*'
     rules:
@@ -48,9 +48,10 @@ spec:
         verbs: ['*']
 ```
 #### Apply the role and create the user
+In the same directory where you created the admin.yaml file, run these commands.
 ```bash
 sudo tctl create -f admin-role.yaml
-sudo tctl users add chris --roles=admin --logins=root,chris
+sudo tctl users add your_name --roles=admin --logins=root,your_name
 ```
 Follow the link and then create your credentials with your OTP device/app and
 VOILA! 
