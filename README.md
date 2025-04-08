@@ -28,6 +28,7 @@ sudo systemctl start teleport
 
 
 #### Once downloaded Teleport successfully
+Double check that you have tctl installed.
 ```bash
 tctl version
 ```
