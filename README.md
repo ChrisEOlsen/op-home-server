@@ -1,55 +1,52 @@
-### Create the teleport folders
+### 1. Install Cloudflare and get domain
+### 2. Go to dashboard and create a tunnel. This tunnel creation will generate the CNAME record automatically. Make the target URL: https://localhost:443
+### 3. Run this command on your Linux host hiding behind CGNAT 
 ```bash
-mkdir -p teleport/config teleport/data
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && 
+
+sudo dpkg -i cloudflared.deb && 
+
+sudo cloudflared service install your_token_will_be_here
+```
+NOTE: Keep this token super safe, and ideally do not save it anywhere. It will always be there on your cloudflare dashboard.
+
+### 4. Download Teleport locally (the docker version is no good unless you enjoy not being able to run commands on the container)
+Community Version One-Liner
+```bash
+curl https://cdn.teleport.dev/install.sh | bash -s 17.4.2
+```
+### 5. Add the included teleport.yaml file to your /etc folder (make any changes necessary for your personal setup)
+
+### Start Teleport!
+```bash
+sudo systemctl enable teleport
+sudo systemctl start teleport
 ```
 
-### Ensure TUNNEL_TOKEN is retrieved from Cloudflare dashboard
-```bash
-export TUNNEL_TOKEN=your_tunnel_token_here
-```
 
-### Setup swarm mode
+### Once downloaded Teleport successfully
 ```bash
-docker swarm init
+tctl version
 ```
-
-### Create an overlay network (Swarm)
-```bash
-docker network create --driver overlay teleport-overlay-network
-```
-
-### Create a role:
-```bash
-docker exec -i teleport tctl create -f - <<'EOF'
+### Create admin.yaml file to define admin role and rules
+```yaml
 kind: role
-version: v4
+version: v5
 metadata:
   name: admin
 spec:
-  options:
-    max_session_ttl: 24h
   allow:
-    logins: ['chris', 'root', 'ubuntu']
+    logins: ['root', 'chris']  # Replace 'chris' with your Linux username
     node_labels:
       '*': '*'
     rules:
       - resources: ['*']
         verbs: ['*']
-EOF
 ```
-
-### Add the admin user:
+### Apply the role and create the user
 ```bash
-docker exec -i teleport tctl users add chris --roles=admin
+sudo tctl create -f admin-role.yaml
+sudo tctl users add chris --roles=admin --logins=root,chris
 ```
-
-### Launch
-```bash
-docker stack deploy -c docker-compose.yml teleport_stack
-```
-
-### Doing this on an old linux laptop?
-#### Keep awake while lid is closed:
-```bash
-sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-```
+Follow the link and then create your credentials with the OTP device
+VOILA! Happy Teleporting
