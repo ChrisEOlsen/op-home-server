@@ -40,8 +40,10 @@ metadata:
   name: admin
 spec:
   allow:
-    logins: ['root', 'your_name']  # Replace 'your_name' with your Linux username or something
+    logins: ['root', 'chris']
     node_labels:
+      '*': '*'
+    app_labels:
       '*': '*'
     rules:
       - resources: ['*']
