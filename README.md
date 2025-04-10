@@ -1,7 +1,7 @@
 #### 1. Install Cloudflare and get domain
 #### 2. Go to Zero Trust > Network > Tunnels and create a tunnel. 
 This tunnel creation will generate the CNAME record automatically. 
-Make the target URL: https://localhost:443 and enable TLS No Verify (Important)
+Make the target URL: https://localhost:3080 and enable TLS No Verify (Important)
 #### 3. Run this command on your Linux host hiding behind CGNAT
 This whole command can be found in your Zero Trust dashboard after creating the tunnel, and will include the token.
 ```bash
@@ -28,8 +28,9 @@ sudo systemctl start teleport
 ```
 
 #### Once downloaded Teleport successfully
-Double check that you have tctl installed.
+Double check that you have tctl and tsh installed.
 ```bash
+tsh version
 tctl version
 ```
 #### Create admin.yaml file to define admin role and rules
@@ -57,4 +58,5 @@ sudo tctl users add your_name --roles=admin --logins=root,your_name
 ```
 Follow the link and then create your credentials with your OTP device/app and
 VOILA! 
+\n
 Happy Teleporting
