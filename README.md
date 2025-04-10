@@ -56,7 +56,7 @@ spec:
 #### Apply the role and create the user
 In the same directory where you created the admin.yaml file, run these commands.
 ```bash
-sudo tctl create -f admin-role.yaml
+sudo tctl create -f admin.yaml
 sudo tctl users add your_name --roles=admin --logins=root,your_name
 ```
 Follow the link and then create your credentials with your OTP device/app and
