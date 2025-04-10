@@ -2,6 +2,8 @@
 #### 2. Go to Zero Trust > Network > Tunnels and create a tunnel. 
 This tunnel creation will generate the CNAME record automatically. 
 Make the target URL: https://localhost:3080 and enable TLS No Verify (Important)
+For Teleport proxy to work, you must set the HTTP HOST HEADER setting to whatever that domain is.
+
 #### 3. Run this command on your Linux host hiding behind CGNAT
 This whole command can be found in your Zero Trust dashboard after creating the tunnel, and will include the token.
 ```bash
