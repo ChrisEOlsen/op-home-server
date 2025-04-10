@@ -1,7 +1,7 @@
 version: v3
 
 teleport:
-  nodename: the_claaaaw # Replace with your machines name
+  nodename: theonewhothinks
   data_dir: /var/lib/teleport
   log:
     output: stderr
@@ -12,18 +12,23 @@ teleport:
 auth_service:
   enabled: "yes"
   listen_addr: 0.0.0.0:3025
-  cluster_name: teleport.my_server.com # Replace with the domain you want your Teleport dashboard to live
+  cluster_name: teleport.crispychrisprivserver.org
 
 ssh_service:
   enabled: "yes"
   listen_addr: 0.0.0.0:3022
 
 proxy_service:
-  enabled: "yes"
-  web_listen_addr: 0.0.0.0:443  # Listen on all interfaces
-  public_addr: teleport.my_server.com:443 # Replace with the domain you want your Teleport dashboard to live add :443
-
+  enabled: true
+  web_listen_addr: 0.0.0.0:3080
+  tunnel_listen_addr: 0.0.0.0:3024 # Crucial for allowing applications to connect to the proxy
+  public_addr: teleport.crispychrisprivserver.org:443
   acme:
-    enabled: "no"  # Disable ACME completely because this will only be running locally, and outside communication is running via cloudflare
-# NOTE: This configuration assumes that the linux host is hiding behind CGNAT, and therefore cannot use ACME to resolve the domain name. 
-# However, this is safe when your Cloudlfare tunnel points to https://localhost:443. All internal traffic is still encrypted via the proxy
+    enabled: "no"
+
+# app_service:
+#   enabled: "yes"
+#   apps:
+#     - name: ide
+#       uri: http://127.0.0.1:8080
+#       public_addr: ide.teleport.crispychrisprivserver.org
