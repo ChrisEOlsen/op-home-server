@@ -61,5 +61,11 @@ sudo tctl users add your_name --roles=admin --logins=root,your_name
 ```
 Follow the link and then create your credentials with your OTP device/app and
 VOILA! 
-\n
 Happy Teleporting
+
+#### Bonus 
+If you are doing this with an Ubuntu laptop like me.
+This should allow you to close the lid without going to sleep.
+```bash
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
