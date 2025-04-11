@@ -1,7 +1,7 @@
 version: v3
 
 teleport:
-  nodename: name_of_your_machine
+  nodename: theonewhothinks
   data_dir: /var/lib/teleport
   log:
     output: stderr
@@ -12,7 +12,7 @@ teleport:
 auth_service:
   enabled: "yes"
   listen_addr: 0.0.0.0:3025
-  cluster_name: your_domain.name
+  cluster_name: teleport.crispychrisprivserver.org
 
 ssh_service:
   enabled: "yes"
@@ -22,13 +22,13 @@ proxy_service:
   enabled: true
   web_listen_addr: 0.0.0.0:3080
   tunnel_listen_addr: 0.0.0.0:3024 # Crucial for allowing applications to connect to the proxy
-  public_addr: your_domain.name:443
+  public_addr: teleport.crispychrisprivserver.org:443
   acme:
     enabled: "no"
 
-# app_service:
-#   enabled: "yes"
-#   apps:
-#     - name: ide
-#       uri: http://127.0.0.1:8080
-#       public_addr: ide.teleport.your_domain.name
+app_service:
+  enabled: "yes"
+  apps:
+  resources:
+    - labels:
+        "*": "*"
