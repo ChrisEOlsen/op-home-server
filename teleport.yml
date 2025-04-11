@@ -12,7 +12,7 @@ teleport:
 auth_service:
   enabled: "yes"
   listen_addr: 0.0.0.0:3025
-  cluster_name: teleport.crispychrisprivserver.org
+  cluster_name: your.domain.com
 
 ssh_service:
   enabled: "yes"
@@ -22,7 +22,7 @@ proxy_service:
   enabled: true
   web_listen_addr: 0.0.0.0:3080
   tunnel_listen_addr: 0.0.0.0:3024 # Crucial for allowing applications to connect to the proxy
-  public_addr: teleport.crispychrisprivserver.org:443
+  public_addr: your.domain.com:443
   acme:
     enabled: "no"
 
@@ -32,3 +32,41 @@ app_service:
   resources:
     - labels:
         "*": "*"
+
+
+## For those using certbot certs:
+# version: v3
+
+# teleport:
+#   nodename: theonewhothinks
+#   data_dir: /var/lib/teleport
+#   log:
+#     output: stderr
+#     severity: INFO
+#     format:
+#       output: text
+
+# auth_service:
+#   enabled: "yes"
+#   listen_addr: 0.0.0.0:3025
+#   cluster_name: teleport.crispychrisprivserver.org
+
+# ssh_service:
+#   enabled: "yes"
+#   listen_addr: 0.0.0.0:3022
+
+# proxy_service:
+#   enabled: true
+#   web_listen_addr: 0.0.0.0:443
+#   tunnel_listen_addr: 0.0.0.0:3024 # Crucial for allowing applications to connect to the proxy
+#   public_addr: teleport.crispychrisprivserver.org:443
+#   https_keypairs:
+#     - key_file: /etc/letsencrypt/live/your.domain.com/privkey.pem
+#       cert_file: /etc/letsencrypt/live/your.domain.com/fullchain.pem
+
+# app_service:
+#   enabled: "yes"
+#   apps:
+#   resources:
+#     - labels:
+#         "*": "*"
